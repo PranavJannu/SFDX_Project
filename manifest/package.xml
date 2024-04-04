@@ -5,5 +5,9 @@
         <members>ContactController</members>
         <name>ApexClass</name>
     </types>
+    <types>
+        <members>helloWorld</members>
+        <name>LightningComponentBundle</name>
+    </types>
     <version>59.0</version>
 </Package>
