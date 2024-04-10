@@ -1,4 +1,4 @@
- import groovy.json.JsonSlurperClassic
+import groovy.json.JsonSlurperClassic
 
 node {
 
@@ -24,13 +24,23 @@ node {
     }
 
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
-        stage('Manual Approval') {
-            // Pause for manual approval before deployment
-            input("Deploy to Production?") // Customize the message as needed
-
+        stage('Email Approval') {
+            emailext (
+                to: 'duser1273@gmail.com',
+                subject: 'Approval Needed: Deploy to Production',
+                body: 'Please approve the deployment to production by clicking the button below:',
+                replyTo: 'jenkins@example.com', // Optional: Specify a reply-to address
+                attachmentsPattern: 'path/to/attachment/files/*.txt', // Optional: Attach files if needed
+                buttons: [
+                    [$class: 'ApproveButton', text: 'Approve', url: '$BUILD_URL/input/Proceed-to-Deployment/approve'],
+                    [$class: 'RejectButton', text: 'Reject', url: '$BUILD_URL/input/Proceed-to-Deployment/reject']
+                ]
+            )
         }
-        
+
         stage('Deploy Code') {
+            // Your deployment steps here
+
             if (isUnix()) {
                 rc = sh returnStatus: true, script: "${toolbelt} force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
             } else {
