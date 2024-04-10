@@ -26,7 +26,7 @@ node {
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
         stage('Email Approval') {
             emailext (
-                to: 'approver@example.com',
+                to: 'pranavjannu6@gmail.com',
                 subject: 'Approval Needed: Deploy to Production',
                 body: 'Please approve the deployment to production by clicking the button below:',
                 replyTo: 'jenkins@example.com', // Optional: Specify a reply-to address
