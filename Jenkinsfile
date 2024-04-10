@@ -26,7 +26,7 @@ node {
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
         stage('Email Approval') {
             emailext (
-                to: 'duser1273@gmail.com',
+                to: 'approver@example.com',
                 subject: 'Approval Needed: Deploy to Production',
                 body: 'Please approve the deployment to production by clicking the button below:',
                 replyTo: 'jenkins@example.com', // Optional: Specify a reply-to address
@@ -37,10 +37,15 @@ node {
                 ]
             )
         }
+        
+        stage('Manual Approval') {
+            // Pause pipeline execution until approval is received
+            input("Deploy to Production?") // Customize the message as needed
+        }
 
         stage('Deploy Code') {
-            // Your deployment steps here
 
+            // Your deployment steps here
             if (isUnix()) {
                 rc = sh returnStatus: true, script: "${toolbelt} force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
             } else {
