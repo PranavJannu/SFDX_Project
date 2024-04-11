@@ -18,6 +18,9 @@ node {
     println CONNECTED_APP_CONSUMER_KEY
     def toolbelt = tool 'toolbelt'
 
+    // Manually specify Jenkins server URL
+    def jenkinsUrl = 'http://localhost:8080/'
+
     stage('checkout source') {
         // when running in multi-branch job, one must issue this command
         checkout scm
@@ -27,13 +30,13 @@ node {
         // Email Approval Stage
         stage('Email Approval') {
             // Construct URLs with actual build URL
-            def buildUrl = "${env.JENKINS_URL}/job/${env.JOB_NAME}/${env.BUILD_NUMBER}"
+            def buildUrl = "${jenkinsUrl}/job/${env.JOB_NAME}/${env.BUILD_NUMBER}"
             def approveUrl = "${buildUrl}/input/Proceed-to-Deployment/approve"
             def rejectUrl = "${buildUrl}/input/Proceed-to-Deployment/reject"
 
             // Send email notification for manual approval
             emailext (
-                to: 'pranavjannu6@gmail.com',
+                to: 'approver@example.com',
                 subject: 'Approval Needed: Deploy to Production',
                 contentType: 'text/html', // Set content type to HTML
                 body: """
