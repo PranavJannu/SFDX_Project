@@ -19,7 +19,7 @@ node {
     def toolbelt = tool 'toolbelt'
 
     // Manually specify Jenkins server URL
-    def jenkinsUrl = 'http://localhost:8080'
+    def jenkinsUrl = 'http://example.com:8080'
 
     stage('checkout source') {
         // when running in multi-branch job, one must issue this command
