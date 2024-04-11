@@ -19,7 +19,7 @@ node {
     def toolbelt = tool 'toolbelt'
 
     // Manually specify Jenkins server URL
-    def jenkinsUrl = 'http://localhost:8080/'
+    def jenkinsUrl = 'http://localhost:8080'
 
     stage('checkout source') {
         // when running in multi-branch job, one must issue this command
@@ -36,7 +36,7 @@ node {
 
             // Send email notification for manual approval
             emailext (
-                to: 'pranavjannu6@gmail.com',
+                to: 'jannupranav6@gmail.com',
                 subject: 'Approval Needed: Deploy to Production',
                 contentType: 'text/html', // Set content type to HTML
                 body: """
