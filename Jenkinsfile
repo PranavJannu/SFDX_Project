@@ -38,7 +38,7 @@ node {
                     <html>
                     <body>
                         <p>Please approve the deployment to production by clicking the button below:</p>
-                        <p><a href="${BUILD_URL}/input/Proceed-to-Deployment/approve"><button style="background-color: #4CAF50; color: white; padding: 15px 32px; text-align: center; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer;">Approve</button></a></p>
+                         <p><a href="http://example.com:8080/job/Trail_AND_Error_1/job/%2500/5//input/Proceed-to-Deployment/approve"><button style="background-color: #4CAF50; color: white; padding: 15px 32px; text-align: center; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer;">Approve</button></a></p>
                     </body>
                     </html>
                 """
