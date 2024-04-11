@@ -31,7 +31,7 @@ node {
         stage('Email Approval') {
             // Send email notification for manual approval
             emailext (
-                to: 'jannupranav6@gmail.com',
+                to: 'pranavjannu6@gmail.com',
                 subject: 'Approval Needed: Deploy to Production',
                 contentType: 'text/html', // Set content type to HTML
                 body: """
