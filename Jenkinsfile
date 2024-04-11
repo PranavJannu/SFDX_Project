@@ -29,22 +29,16 @@ node {
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
         // Email Approval Stage
         stage('Email Approval') {
-            // Construct URLs with actual build URL
-            def buildUrl = "${jenkinsUrl}/job/${env.JOB_NAME}/${env.BUILD_NUMBER}"
-            def approveUrl = "${buildUrl}/input/Proceed-to-Deployment/approve"
-            def rejectUrl = "${buildUrl}/input/Proceed-to-Deployment/reject"
-
             // Send email notification for manual approval
             emailext (
-                to: 'pranavjannu6@gmail.com',
+                to: 'jannupranav6@gmail.com',
                 subject: 'Approval Needed: Deploy to Production',
                 contentType: 'text/html', // Set content type to HTML
                 body: """
                     <html>
                     <body>
                         <p>Please approve the deployment to production by clicking the button below:</p>
-                        <p><a href="${approveUrl}"><button style="background-color: #4CAF50; color: white; padding: 15px 32px; text-align: center; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer;">Approve</button></a></p>
-                        <p><a href="${rejectUrl}"><button style="background-color: #f44336; color: white; padding: 15px 32px; text-align: center; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer;">Reject</button></a></p>
+                        <p><a href="${BUILD_URL}/input/Proceed-to-Deployment/approve"><button style="background-color: #4CAF50; color: white; padding: 15px 32px; text-align: center; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer;">Approve</button></a></p>
                     </body>
                     </html>
                 """
@@ -54,7 +48,7 @@ node {
         // Manual Approval Stage
         stage('Manual Approval') {
             // Pause pipeline execution until approval is received
-            input("Deploy to Production?") // Customize the message as needed
+            input(message: "Deploy to Production?", ok: "Approve", parameters: [[$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Do you approve the deployment to production?', name: 'Approved']])
         }
 
         // Deploy Code Stage
