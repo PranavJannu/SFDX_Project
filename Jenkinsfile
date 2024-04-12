@@ -1,11 +1,9 @@
 import groovy.json.JsonSlurperClassic
 
 node {
-
     def BUILD_NUMBER=env.BUILD_NUMBER
     def RUN_ARTIFACT_DIR="tests/${BUILD_NUMBER}"
     def SFDC_USERNAME
-
     def HUB_ORG=env.HUB_ORG_DH
     def SFDC_HOST = env.SFDC_HOST_DH
     def JWT_KEY_CRED_ID = env.JWT_CRED_ID_DH
@@ -17,9 +15,6 @@ node {
     println SFDC_HOST
     println CONNECTED_APP_CONSUMER_KEY
     def toolbelt = tool 'toolbelt'
-
-    // Manually specify Jenkins server URL
-    def jenkinsUrl = 'http://example.com:8080'
 
     stage('checkout source') {
         // when running in multi-branch job, one must issue this command
@@ -37,8 +32,8 @@ node {
                 body: """
                     <html>
                     <body>
-                        <p>Please approve the deployment to production by clicking the button below:</p>
-                         <p><a href="http://example.com:8080/job/Trail_AND_Error_1/job/%2500/5//input/Proceed-to-Deployment/approve"><button style="background-color: #4CAF50; color: white; padding: 15px 32px; text-align: center; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer;">Approve</button></a></p>
+                        <p>Please approve the deployment to production by clicking the link below:</p>
+                        <p><a href="${BUILD_URL}/input/Proceed-to-Deployment/approve">Approve Deployment</a></p>
                     </body>
                     </html>
                 """
