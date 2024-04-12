@@ -29,14 +29,7 @@ node {
                 to: 'pranavjannu6@gmail.com',
                 subject: 'Approval Needed: Deploy to Production',
                 contentType: 'text/html', // Set content type to HTML
-                body: """
-                    <html>
-                    <body>
-                        <p>Please approve the deployment to production by clicking the link below:</p>
-                        <p><a href="${BUILD_URL}/input/Proceed-to-Deployment/approve">Approve Deployment</a></p>
-                    </body>
-                    </html>
-                """
+                body: 'Please approve the deployment by clicking the link below:\n$BUILD_URL/input'
             )
         }
 
