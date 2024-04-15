@@ -21,7 +21,8 @@ node {
         checkout scm
     }
 
-    withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
+    // withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) 
+      timeout(time: 15, unit: "MINUTES"){
         // Email Approval Stage
         stage('Email Approval') {
             // Send email notification for manual approval
